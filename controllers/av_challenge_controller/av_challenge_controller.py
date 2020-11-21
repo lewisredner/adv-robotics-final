@@ -5,7 +5,7 @@
 from controller import Robot, Camera
 
 # create the Robot instance.
-robot = Robot()
+robot = Driver()
 front_camera = robot.getCamera("front_camera")
 rear_camera = robot.getCamera("rear_camera")
 
