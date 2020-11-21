@@ -13,8 +13,8 @@ from vehicle import Driver
 robot = Driver()
 front_camera = robot.getCamera("front_camera")
 rear_camera = robot.getCamera("rear_camera")
-lidar = robot.getLidar("SickLms291")
-m1 = robot.getMotor("front right wheel")
+# lidar = robot.getLidar("SickLms291")
+# m1 = robot.getMotor("front right wheel")
 #for att in dir(robot):
 #    print(att,getattr(robot,att))
 # get the time step of the current world.
