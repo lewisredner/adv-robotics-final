@@ -6,8 +6,10 @@ from controller import Robot, Camera, Motor, DistanceSensor
 import numpy as np
 import cv2 as cv
 import math
-
+import matplotlib.pyplot as plt
 from vehicle import Driver
+
+MAKEPLOT = True
  
 # create the Robot instance.
 #robot = Robot()
@@ -32,6 +34,25 @@ print(timestep)
 
 front_camera.enable(15)
 rear_camera.enable(30)
+
+plt.style.use('ggplot')
+
+def live_plotter(x_vec, y1_data, change, title):
+    pause_time=0.01
+    if change == []:
+        plt.ion()
+        fig = plt.figure(figsize=(13,6))
+        ax = fig.add_subplot(111)
+        change, = ax.plot(x_vec, y1_data,'-o',alpha=0.8)        
+        plt.ylabel('Speed in MPH')
+        plt.title(title)
+        plt.show()
+    
+    change.set_ydata(y1_data)
+    plt.ylim(-1, 70)
+    plt.pause(pause_time)
+
+    return change
 
 def process_front(img1,shadow):
 
@@ -89,6 +110,13 @@ def process_front(img1,shadow):
 steer = 0
 kp = 4.5
 shadow_state = 0
+# for plot
+if MAKEPLOT is True:
+    plt.style.use('ggplot')
+    size = 100 
+    x_vec = np.linspace(-20, 0, size)
+    y_vec = np.linspace(0, 0, size)
+    change = []
 while robot.step() != -1:
     # Read the sensors:
     # Enter here functions to read sensor data, like:
@@ -115,6 +143,12 @@ while robot.step() != -1:
 
 
     robot.setSteeringAngle(steer)
+    # for plot
+    if MAKEPLOT is True:
+        rand_val = np.random.randn(1)
+        y_vec[-1] = float(robot.getCurrentSpeed())
+        change = live_plotter(x_vec,y_vec,change, "Webots Tesla Racecourse Simulation Speed")
+        y_vec = np.append(y_vec[1:],0.0)
 
     pass
 
