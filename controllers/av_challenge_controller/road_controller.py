@@ -9,7 +9,7 @@ import math
 import matplotlib.pyplot as plt
 from vehicle import Driver
 
-MAKEPLOT = True
+MAKEPLOT = False
  
 # create the Robot instance.
 #robot = Robot()
